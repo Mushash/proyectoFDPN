@@ -8,6 +8,10 @@ from models.ModelUser import ModelUser
 from models.entities.User import User
 
 fdpnApp = Flask(__name__)
+db      =MySQL(fdpnApp)
+#pythonanywhere
+fdpnApp.config.from_object('development')
+adminSession = LoginManager(fdpnApp)
 
 @fdpnApp.router('/')
 def home():
@@ -29,6 +33,6 @@ def signup():
 def signin():
     return render_template('signin.html')
 
-if __name__=="_main_":
+'''if __name__=="_main_":
     fdpnApp.config.from_object('development')
-    fdpnApp.run(debug=True,port=3300)
+    fdpnApp.run(debug=True,port=3300)'''
