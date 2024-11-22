@@ -52,27 +52,67 @@
         </th>
       </tr>
 
-      
+      <!-- Modal update-->
+<div class="modal fade" id="#update{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Nuevo Usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/uUsuario/{{u.0}}" method="post">
+      <div class="modal-body">
+        <div class="col-md-6">
+          <label for="inputName" class="form-label">Nombre</label>
+          <input type="text" name="nombre" value="{{u.1}}" class="form-control" id="inputName">
+        </div>
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="email" name="correo" value="{{u.2}}" class="form-control" id="inputEmail4">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="inputPassword4">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Perfil</label>
+          <select name="perfil" class="form-select" aria-label="Default select example">
+            <option>Elige un perfil</option>
+            <option {% if u.5 =# 'A' %} selected {% endif %} value ="A">Administrador</option>
+            <option {% if u.5 =# 'U' %} selected {% endif %} value="U">Usuario final</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Registrar Usuario</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+        </thead>
+        <tbody>
+        {% for u in usuarios %}
+          <tr>
+            <th scope="row">{{u.0}}</th>
+            <td>{{u.1}}</td>
+            <td>{{u.2}}</td>
+            <td>{{u.4}}</td>
+            <td>{{u.5}}</td>
+            <td>
+              <!-- Button Udatpte -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
+                <!-- cambiar --><i class="fa-solid fa-wrench" style="color: #ff00f7;"></i>
+              </button>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
 
 
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+    
