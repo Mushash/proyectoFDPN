@@ -22,7 +22,7 @@ class MailConfig(Config):
     MAIL_USE_SSL    =   False
     MAIL_USERNAME   =   'fernando.prieto2229@alumnos.udg'
     MAIL_PASSWORD   =   'skzv acvs hmec wdzp'
-    MAIL_ASCIT_ATTACHMENTS  =   True
+    MAIL_ASCII_ATTACHMENTS  =   True
 
 
 config = {

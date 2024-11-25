@@ -1,6 +1,7 @@
 from flask import Flask, render_template,url_for,request,redirect,flash
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, login_user, logout_user
+from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 from config import config
@@ -11,6 +12,9 @@ fdpnApp = Flask(__name__)
 db      =MySQL(fdpnApp)
 #pythonanywhere
 fdpnApp.config.from_object(config['development'])
+fdpnApp.config.from_object(config['mail'])
+db           =  MySQL(fdpnApp)
+Mail         =  Mail(fdpnApp)
 adminSession = LoginManager(fdpnApp)
 
 @adminSession.user_loader
@@ -32,6 +36,9 @@ def signup():
         regUsuario = db.connection.cursor()
         regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
+        msg        =    Message(subject='Gracias por darme tu alma en AdicKctos',recipients=correo)
+        msg.html   =    render_template('mail.html',nombre=nombre)
+        Mail.send(msg)
         return render_template('home.html')
     return render_template('signup.html')
 
@@ -98,6 +105,5 @@ def uUsuario(id):
     flash('Usuario actualizado')
     return redirect(url_for('sUsuario'))
 
-'''if __name__=="_main_":
-    fdpnApp.config.from_object('development')
-    fdpnApp.run(debug=True,port=3300)'''
+if __name__=="_main_":
+    fdpnApp.run(debug=True,port=3300)
