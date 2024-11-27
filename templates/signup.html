@@ -35,16 +35,24 @@
     </div>
   </nav>
 
+  <div class="row g-3">
+    <div class="col">
+      <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+    </div>
   <div class="container">
     <form action="/signup" method="post"></form>
     <form class="row g-3">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" id="exampleInputText">
+      </div>
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Email</label>
-          <input type="text" name="nombre" class="form-control" id="exampleInputText">
+          <input type="text" name="correo" class="form-control" id="exampleInputText">
         </div>
         <div class="col-md-6">
           <label for="inputPassword4" class="form-label">Password</label>
-          <input type="password" class="form-control" id="inputPassword4">
+          <input type="password" name="clave" class="form-control" name="clave" id="inputPassword4">
         </div>
         
         <div class="col-12">
