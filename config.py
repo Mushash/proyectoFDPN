@@ -20,8 +20,9 @@ class MailConfig(Config):
     MAIL_PORT       =   587
     MAIL_USE_TLS    =   True
     MAIL_USE_SSL    =   False
-    MAIL_USERNAME   =   'fernando.prieto2229@alumnos.udg'
-    MAIL_PASSWORD   =   'skzv acvs hmec wdzp'
+    MAIL_USERNAME   =   'fernando.prieto2229@alumnos.udg.mx'
+    MAIL_PASSWORD   =   'wnok khpp qamw hbjn'
+    MAIL_DEFAULT_SENDER = 'fernando.prieto2229@alumnos.udg.mx'
     MAIL_ASCII_ATTACHMENTS  =   True
 
 

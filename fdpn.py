@@ -14,7 +14,7 @@ db      =MySQL(fdpnApp)
 fdpnApp.config.from_object(config['development'])
 fdpnApp.config.from_object(config['mail'])
 db           =  MySQL(fdpnApp)
-Mail         =  Mail(fdpnApp)
+mail         =  Mail(fdpnApp)
 adminSession = LoginManager(fdpnApp)
 
 @adminSession.user_loader
@@ -32,13 +32,13 @@ def signup():
         correo = request.form['correo']
         clave = request.form['clave']
         claveCifrada = generate_password_hash(clave)
-        fechareg = datetime.datetime()
+        fechareg = datetime.now()
         regUsuario = db.connection.cursor()
         regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
-        msg        =    Message(subject='Gracias por darme tu alma en AdicKctos',recipients=correo)
+        msg        =    Message(subject='Gracias por darme tu alma en AdicKctos',recipients=[correo])
         msg.html   =    render_template('mail.html',nombre=nombre)
-        Mail.send(msg)
+        mail.send(msg)
         return render_template('home.html')
     return render_template('signup.html')
 
@@ -105,5 +105,5 @@ def uUsuario(id):
     flash('Usuario actualizado')
     return redirect(url_for('sUsuario'))
 
-if __name__=="_main_":
+if __name__ == "__main__":
     fdpnApp.run(debug=True,port=3300)
