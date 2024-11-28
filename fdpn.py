@@ -88,7 +88,7 @@ def iUsuario():
     db.connection.commit()
     agregarUsuario.close()
     flash('Usuario agregado')
-    return redirect (url_for('sUsuario'))
+    return redirect (('/home'))
 
 @fdpnApp.route('/uUsuario/<int:id>', methods = ['GET', 'POST'])
 def uUsuario(id):
