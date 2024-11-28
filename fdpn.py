@@ -36,8 +36,8 @@ def signup():
         regUsuario = db.connection.cursor()
         regUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg) VALUES (%s,%s,%s,%s)",(nombre, correo, claveCifrada, fechareg))
         db.connection.commit()
-        msg        =    Message(subject='Gracias por darme tu alma en AdicKctos',recipients=[correo])
-        msg.html   =    render_template('mail.html',nombre=nombre)
+        msg = Message(subject='Gracias por venderle tu alma a Panda shop',recipients=[correo])
+        msg.html =  render_template('mail.html',nombre=nombre)
         mail.send(msg)
         return render_template('home.html')
     return render_template('signup.html')
@@ -45,7 +45,7 @@ def signup():
 @fdpnApp.route('/signin', methods = ['GET', 'POST'])
 def signin():
     if request.method == "POST":
-        usuario            = User(0, None, request.form['correo'], request.form['clave'], None, None)
+        usuario =User(None,None,request.form['correo'],request.form['clave'],None,None)
         usuarioAutenticado = ModelUser.signin(db, usuario)
         if usuarioAutenticado is not None:
             if usuarioAutenticado.clave:

@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% block titulo %}Panda Shop{% endblock %}
+{% block titulo %} Ardillas {% endblock %}
 {% block contenido %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
@@ -33,11 +33,11 @@
   </nav>
 
   <div class="card text-bg-dark">
-    <img src="..." class="card-img" alt="...">
+    <img src="{{url_for('static',filename='/img/img7.jpg')}}" class="card-img" alt="...">
     <div class="card-img-overlay">
-      <h5 class="card-title">Card title </h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small>Last updated 3 mins ago</small></p>
+      <h5 class="card-title"> Que capos los pandas  </h5>
+      <p class="card-text">Vean estos capos de Pandas y compren uno, 100% real, no fake.</p>
+      <p class="card-text"><small></small></p>
     </div>
   </div>
 
@@ -49,13 +49,13 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="..." class="d-block w-100" alt="...">
+        <img src="{{url_for('static',filename='/img/img4.jpg')}}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
+        <img src="{{url_for('static',filename='/img/img5.jpg')}}" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="...">
+        <img src="{{url_for('static',filename='/img/img6.jpg')}}" class="d-block w-100" alt="...">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -74,7 +74,7 @@
       <div class="card-body">
         <h5 class="card-title">Panda cocinero</h5>
         <p class="card-text">Panda que te cocina de todo, buen cocinero.</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        <p class="card-text"><small class="text-body-secondary"></small></p>
       </div>
     </div>
     <div class="card">
@@ -82,7 +82,7 @@
       <div class="card-body">
         <h5 class="card-title">Panda minero</h5>
         <p class="card-text">Este wey te mina de todo, todo un capo.</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        <p class="card-text"><small class="text-body-secondary"></small></p>
       </div>
     </div>
     <div class="card">
@@ -90,7 +90,7 @@
       <div class="card-body">
         <h5 class="card-title">Panda bailarin</h5>
         <p class="card-text">Este tremendo hdp, te baila cumbiones.</p>
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+        <p class="card-text"><small class="text-body-secondary"></small></p>
       </div>
     </div>
   </div>
