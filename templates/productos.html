@@ -1,0 +1,170 @@
+{% extends 'layout.html' %}
+{% block titulo %}dame x ejemplo {% endblock %}
+{% block contenido %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <!-- cambiar --><a class="navbar-brand" href="/"><i class="fa-brands fa-instagram"></i>Panda Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/sUsuario">Usuario</a></li>
+                        <li><a class="dropdown-item" href="/sProducto">Productos</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">MIau</a></li>
+                    </ul>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"> {{current_user.nombre}} </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/signout">
+                        <i class="fa-solid fa-right-from-bracket" style="color: #e10987;"></i>
+                        cerrar Sesion</a>
+                </li>
+            </ul>
+            <form class="d-flex" roles="search">
+                <imput class="form-control me-2" type="search" placeholder="search" aria-label="search">
+                    <button class="btn btn-outline-success" type="submit">search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Ocupacion</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col" colspan="2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
+                        <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i>
+                    </button>
+                </th>
+            </tr>
+            <!-- Modal Insert -->
+            <div class="modal fade" id="insert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/iProducto" method="post">
+                            <div class="modal-body">
+                                <input type="text" name="nombrep" placeholder="nombre">
+                                <input type="text" name="ocupacion" placeholder="Ocupacion">
+                                <input type="text" name="descripcion" placeholder="Descripcion">
+                                <input type="number" name="precio" placeholder="Precio">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Agregar tu esclavo</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </thead>
+        <tbody>
+            {% for p in producto %}
+            <tr>
+                <th scope="row">{{p.0}}</th>
+                <td>{{p.1}}</td>
+                <td>{{p.2}}</td>
+                <td>{{p.3}}</td>
+                <td>{{p.4}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#update{{p.0}}">
+                        <i class="fa-solid fa-pen-nib" style="color: #ffffff;"></i>
+                    </button>
+                </td>
+                <td>
+                    <!-- Button delete -->
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{p.0}}">
+                        <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Modal Update -->
+            <div class="modal fade" id="update{{p.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal Editar</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/uProducto/{{p.0}}" method="post">
+                            <div class="modal-body">
+                                <input type="text" name="nombrep" value="{{p.1}}" placeholder="Receta">
+                                <input type="text" name="ocupacion" value="{{p.2}}" placeholder="Ocupacion">
+                                <input type="text" name="descripcion" value="{{p.3}}" placeholder="Descripcion">
+                                <input type="number" name="precio" value="{{p.4}}" placeholder="precio">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal delete -->
+            <div class="modal fade" id="delete{{p.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal delete</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="/dProducto/{{p.0}}">
+                            <div class="modal-body">
+                                <p>Seguro que Deseas Eliminar al Panda {{p.1}}?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Eliminar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -9,7 +9,7 @@ from models.ModelUser import ModelUser
 from models.entities.User import User
 
 fdpnApp = Flask(__name__)
-db      =MySQL(fdpnApp)
+
 #pythonanywhere
 fdpnApp.config.from_object(config['development'])
 fdpnApp.config.from_object(config['mail'])
@@ -71,9 +71,9 @@ def signout():
 def sUsuario():
     selUsuario = db.connection.cursor()
     selUsuario.execute("SELECT * FROM usuario")
-    U = selUsuario.fetchall()
+    u          = selUsuario.fetchall()
     selUsuario.close()
-    return render_template('usuarios.html', usuarios = U)
+    return render_template('usuarios.html', usuarios = u)
 
 @fdpnApp.route('/iUsuario', methods = ['GET', 'POST'])
 def iUsuario():
@@ -87,8 +87,8 @@ def iUsuario():
     agregarUsuario.execute("INSERT INTO usuario (nombre, correo, clave, fechareg, perfil) VALUES(%s, %s, %s, %s, %s)", (nombre, correo, claveCifrada, fechareg, perfil))
     db.connection.commit()
     agregarUsuario.close()
-    flash('Usuario agregado')
-    return redirect (('/home'))
+    flash('Usuario Agregado')
+    return redirect(url_for('sUsuario'))
 
 @fdpnApp.route('/uUsuario/<int:id>', methods = ['GET', 'POST'])
 def uUsuario(id):
@@ -99,11 +99,64 @@ def uUsuario(id):
     fechareg        = datetime.now()
     perfil          = request.form['perfil']
     actUsuario = db.connection.cursor()
-    actUsuario.execute("UPDATE usuario SET nombre=%s, correo=%s, clave=%s, fechareg=%s, perfil=%s WHERE id=%s", (nombre, correo, claveCifrada, fechareg, perfil))
+    actUsuario.execute("UPDATE usuario SET nombre=%s, correo=%s, clave=%s, fechareg=%s, perfil=%s WHERE id=%s", (nombre, correo, claveCifrada, fechareg, perfil, id))
     db.connection.commit()
     actUsuario.close()
-    flash('Usuario actualizado')
+    flash('Usuario Actualizado')
     return redirect(url_for('sUsuario'))
+
+@fdpnApp.route('/dUsuario/<int:id>', methods = ['GET', 'POST'])
+def dUsuario(id):
+    delUsuario = db.connection.cursor()
+    delUsuario.execute("DELETE FROM usuario WHERE id=%s", (id,))
+    db.connection.commit()
+    delUsuario.close
+    flash("Usuario eliminado")
+    return redirect(url_for('sUsuario'))
+
+#Productos
+@fdpnApp.route('/sProducto', methods = ['GET','POST'])
+def sProducto():
+    selProducto = db.connection.cursor()
+    selProducto.execute("SELECT * FROM producto")
+    p           = selProducto.fetchall()
+    selProducto.close()
+    return render_template('productos.html', producto = p)
+
+@fdpnApp.route('/iProducto',  methods = ['GET','POST'])
+def iProducto():
+    nombrep     = request.form ['nombrep']
+    ocupacion       = request.form ['ocupacion']
+    descripcion = request.form ['descripcion']
+    precio      = request.form ['precio']
+    regProducto = db.connection.cursor()
+    regProducto.execute("INSERT INTO producto (nombrep, ocupacion, descripcion, precio) VALUES (%s, %s, %s, %s)", (nombrep, ocupacion, descripcion, precio))
+    db.connection.commit()
+    regProducto.close()
+    flash("Producto Agregado")
+    return redirect(url_for('sProducto'))
+
+@fdpnApp.route('/uProducto/<int:idp>' , methods =  ['GET', 'POST'])
+def uProducto(idp):
+    nombrep     = request.form ['nombrep']
+    ocupacion       = request.form ['ocupacion']
+    descripcion = request.form ['descripcion']
+    precio      = request.form ['precio']
+    actProducto = db.connection.cursor()
+    actProducto.execute("UPDATE producto SET nombrep=%s, ocupacion=%s, descripcion=%s, precio=%s WHERE idp=%s", (nombrep, ocupacion, descripcion, precio, idp))
+    db.connection.commit()
+    actProducto.close()
+    flash ("Producto actualizado con exito")
+    return redirect(url_for('sProducto'))
+
+@fdpnApp.route('/dProducto/<int:idp>' , methods =  ['GET', 'POST'])
+def dProducto(idp):
+    delProducto = db.connection.cursor()
+    delProducto.execute("DELETE FROM producto WHERE idp = %s", (idp,))
+    db.connection.commit()
+    delProducto.close()
+    flash ("Producto Eliminado")
+    return redirect(url_for('sProducto'))
 
 if __name__ == "__main__":
     fdpnApp.run(debug=True,port=3300)

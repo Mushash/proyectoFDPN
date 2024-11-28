@@ -2,117 +2,160 @@
 {% block titulo %}ardillas por doquier{% endblock %}
 {% block contenido %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"><i class="fa-brands fa-instagram"></i>aDICKtos</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/signup">Registrate</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/signin">
-              <i class="fa-solid fa-user"></i>
-              Cerrar Sesion</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><i class="fa-brands fa-instagram"></i>Panda shop</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/signup">Registrate</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/signin">
+            <i class="fa-solid fa-user"></i>
+            Cerrar Sesion</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">id</th>
-        <th scope="col">nombre</th>
-        <th scope="col">correo</th>
-        <th scope="col">fecha de registro</th>
-        <th scope="col">perfil</th>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Fecha Reg</th>
+        <th scope="col">Perfil</th>
         <th scope="col" colspan="2">
-
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
-                <i class="fa-solid fa-user" style="color: #ff00f7;"></i>   
-            </button>
-
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
+            <i class="fa-solid fa-user-plus" style="color: #ffffff;"></i>
+          </button>
         </th>
       </tr>
+      <!-- Modal Insert -->
+      <div class="modal fade" id="insert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/iUsuario" method="post">
+              <div class="modal-body">
+                <input type="text" name="nombre" placeholder="Usuario">
+                <input type="email" name="correo" placeholder="Correo">
+                <input type="password" name="clave" placeholder="Contraseña">
+                <label for="validationServer04" class="form-label"> Perfil </label>
+                <select name="perfil" class="form-select" aria-label="Default select example">
+                  <option selected>Elige un Perfil</option>
+                  <option value="A">Administrador</option>
+                  <option value="U">Usuario Final</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </thead>
+    <tbody>
+      {% for u in usuarios %}
+      <tr>
+        <th scope="row">{{u.0}}</th>
+        <td>{{u.1}}</td>
+        <td>{{u.2}}</td>
+        <td>{{u.4}}</td>
+        <td>{{u.5}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update{{u.0}}">
+            <i class="fa-solid fa-pen-nib" style="color: #ffffff;"></i>
+          </button>
+        </td>
+        <td>
+          <!-- Button delete -->
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{u.0}}">
+            <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+          </button>
+        </td>
+      </tr>
 
-      <!-- Modal update-->
-<div class="modal fade" id="#update{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Nuevo Usuario</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="/uUsuario/{{u.0}}" method="post">
-      <div class="modal-body">
-        <div class="col-md-6">
-          <label for="inputName" class="form-label">Nombre</label>
-          <input type="text" name="nombre" value="{{u.1}}" class="form-control" id="inputName">
-        </div>
-        <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" name="correo" value="{{u.2}}" class="form-control" id="inputEmail4">
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="inputPassword4">
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Perfil</label>
-          <select name="perfil" class="form-select" aria-label="Default select example">
-            <option>Elige un perfil</option>
-            <option {% if u.5 =# 'A' %} selected {% endif %} value ="A">Administrador</option>
-            <option {% if u.5 =# 'U' %} selected {% endif %} value="U">Usuario final</option>
-          </select>
+      <!-- Modal Update -->
+      <div class="modal fade" id="update{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal Editar</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/uUsuario/{{u.0}}" method="post">
+              <div class="modal-body">
+                <input type="text" name="nombre" value="{{u.1}}" placeholder="Usuario">
+                <input type="email" name="correo" value="{{u.2}}" placeholder="Correo">
+                <input type="password" name="clave" placeholder="Contraseña">
+                <label for="validationServer04" class="form-label"> Perfil </label>
+                <select name="perfil" class="form-select" aria-label="Default select example">
+                  <option selected>Elige un Perfil</option>
+                  <option {% if u.5=='A' %} selected {% endif %} value="A">Administrador</option>
+                  <option {% if u.5=='U' %} selected {% endif %} value="U">Usuario Final</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Registrar Usuario</button>
+
+      <!-- Modal delete -->
+      <div class="modal fade" id="delete{{u.0}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/dUsuario/{{u.0}}">
+              <div class="modal-body">
+                <p>Seguro que Deseas Eliminar el Usuario {{u.1}}?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Eliminar</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </form>
-    </div>
-  </div>
-</div>
-        </thead>
-        <tbody>
-        {% for u in usuarios %}
-          <tr>
-            <th scope="row">{{u.0}}</th>
-            <td>{{u.1}}</td>
-            <td>{{u.2}}</td>
-            <td>{{u.4}}</td>
-            <td>{{u.5}}</td>
-            <td>
-              <!-- Button Udatpte -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insert">
-                <!-- cambiar --><i class="fa-solid fa-wrench" style="color: #ff00f7;"></i>
-              </button>
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+
+      {% endfor %}
+
+    </tbody>
+  </table>
 </div>
 {% endblock %}
-
-
-    
